@@ -15,7 +15,8 @@ int main(void)
 {
     int i = 0;
     char *usr_message = "This is the function to be used for manual testing.\n";
-    char *usr_message2 = "Any manually allocated data that is inputted into a node will not be freed by the program.\n";
+    char *usr_message2 = "Any manually allocated data that is inputted into a \
+    node will not be freed by the program.\n";
     linked_lists_t *ll = init_list((void *)usr_message, STRING);
     linked_lists_t *tmp;
 

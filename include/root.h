@@ -6,8 +6,8 @@
 */
 
 #ifndef ROOT_H_
-#define ROOT_H_
-#include "linked_lists.h"
+    #define ROOT_H_
+    #include "linked_lists.h"
 
 void hl_putstr(char const *str);
 

@@ -2,6 +2,7 @@
 *.a
 *.so
 *.out
+*.log
 
 your_test
 unit_test

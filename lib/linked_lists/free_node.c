@@ -13,9 +13,8 @@ linked_lists_t *free_node(linked_lists_t *ll, int index)
     int i = 0;
     linked_lists_t *tmp;
 
-    if (ll == NULL) {
+    if (ll == NULL)
         return ll;
-    }
     for (tmp = ll; i < index && tmp->next != NULL; tmp = tmp->next, i++);
     if (tmp->prev != NULL && tmp->next != NULL) {
         if (tmp->prev == NULL) {
@@ -30,6 +29,5 @@ linked_lists_t *free_node(linked_lists_t *ll, int index)
         }
     }
     free(tmp);
-
     return ll;
 }
