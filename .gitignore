@@ -1,0 +1,7 @@
+*.o
+*.a
+*.so
+*.out
+
+your_test
+unit_test
