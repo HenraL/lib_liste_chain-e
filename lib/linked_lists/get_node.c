@@ -5,13 +5,36 @@
 ** get_node.c
 */
 
-#include <stddef.h>
+#include <stdlib.h>
+
 #include "linked_lists.h"
 
-linked_lists_t *get_node(linked_lists_t *ll, int node_index)
+/*
+** Get a specific node of a linked list
+** -------------------------------------------------------------------
+** In:
+**   - linked_list_t *ll -> the linked list to process
+**   - int index         -> the index of the node to return
+**   - int *status       -> the current status of the function
+** -------------------------------------------------------------------
+** Out:
+**   - linked_list_t
+**   - an up to date status (the value of the pointer get updated)
+*/
+
+linked_lists_t *get_node(linked_lists_t *ll, int index, int *status)
 {
-    int i = 0;
     linked_lists_t *tmp;
-    for (tmp = ll; i < node_index && tmp->next != NULL; tmp = tmp->next, i++);
+    *status = llsuccess;
+
+    if (ll == NULL) {
+        *status = llerror;
+        return NULL;
+    }
+    for (tmp = ll; index > 0 && tmp != NULL; tmp = tmp->next, index--);
+    if (index > 0) {
+        *status = llerror;
+        return NULL;
+    }
     return tmp;
 }

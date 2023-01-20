@@ -5,13 +5,25 @@
 ## Makefile
 ##
 
-SRC	=	init.c	\
-		append.c	\
+DEP_DIR	=	sub_dependencies/
+
+SRC	=	pop.c	\
 		get_node.c	\
-		free_node.c	\
-		get_node_type.c	\
+		free_list.c	\
+		init_list.c	\
+		append_node.c	\
+		display_node.c	\
+		display_list.c	\
 		get_node_data.c	\
-		free_linked_list.c	\
+		get_node_type.c	\
+		update_indexes.c	\
+
+DEP_SRC	=	$(DEP_DIR)ll_putstr.c	\
+			$(DEP_DIR)ll_strlen.c	\
+			$(DEP_DIR)ll_putchar.c	\
+			$(DEP_DIR)ll_put_nbr.c	\
+			$(DEP_DIR)ll_put_str_nb.c	\
+			$(DEP_DIR)ll_put_str_str.c	\
 
 SILENT	=	@
 
@@ -21,22 +33,25 @@ RM	=	$(SILENT)rm -f
 
 COPY	=	$(SILENT)cp
 
-CPPFLAGS	=	-I./include
+CPPFLAGS	=	-I../../include
 
 CFLAGS	=	-Wall -Wextra -lm
 
 HEADERFILE	=	linked_lists.h
 
-OBJ	=	$(SRC:.c=.o)
+PROG_SRC	=	$(SRC)
+PROG_SRC	+=	$(DEP_SRC)
+
+PROG_OBJ	=	$(PROG_SRC:.c=.o)
 
 NAME	=	liblinklist.a
 
 DYNAMIC	=	$(patsubst %.a,%.so,$(NAME))
 
-all: $(NAME) update_includes update_archive
+all: update_includes $(NAME) update_archive
 
-$(NAME):	$(OBJ)
-	$(SILENT)ar rc $(NAME) $(OBJ)
+$(NAME):	$(PROG_OBJ)
+	$(SILENT)ar rc $(NAME) $(PROG_OBJ)
 
 update_archive:
 	$(COPY) $(NAME) ../
@@ -49,13 +64,13 @@ update_includes:
 
 shared:	$(DYNAMIC) update_includes update_dynamic_archive
 
-$(DYNAMIC):	$(OBJ)
-	$(CC) -shared -o $(DYNAMIC) $(OBJ)
+$(DYNAMIC):	$(PROG_OBJ)
+	$(CC) -shared -o $(DYNAMIC) $(PROG_OBJ)
 
 all_types:	all	shared
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(PROG_OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
